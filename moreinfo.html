@@ -1,0 +1,53 @@
+<!-- more-info.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More Info</title>
+</head>
+<body>
+    <h1>More Information</h1>
+
+    <div id="pollutionInfo"></div>
+    <div id="weatherInfo"></div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const city = urlParams.get('city');
+        const state = urlParams.get('state');
+
+        const apiKey = "a2f30b6e-6ae9-4b0e-bda1-d25abc169d23";
+        const apiUrl = `http://api.airvisual.com/v2/city?city=${city}&state=${state}&country=UK&key=${apiKey}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const pollutionData = data.data.current.pollution;
+                const weatherData = data.data.current.weather;
+
+                // Display pollution information
+                const pollutionInfo = document.getElementById("pollutionInfo");
+                pollutionInfo.innerHTML = `
+                    <h2>Pollution Information</h2>
+                    <p>Air Quality Index: ${pollutionData.aqius}</p>
+                    <p>Main Pollutant: ${pollutionData.mainus}</p>
+                `;
+
+                // Display weather information
+                const weatherInfo = document.getElementById("weatherInfo");
+                weatherInfo.innerHTML = `
+                    <h2>Weather Information</h2>
+                    <p>Temperature: ${weatherData.tp}°C</p>
+                    <p>Pressure: ${weatherData.pr} hPa</p>
+                    <p>Humidity: ${weatherData.hu}%</p>
+                    <p>Wind Speed: ${weatherData.ws} m/s</p>
+                `;
+            })
+            .catch(error => {
+                console.error(`Error fetching data for ${city}, ${state}:`, error);
+            });
+    </script>
+</body>
+</html>
