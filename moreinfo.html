@@ -32,8 +32,6 @@
 <body>
     <button id="pollutionButton">Pollution</button>
     <button id="weatherButton">Weather</button>
-    
-
     <div id="weatherDetails" ></div>
     <div id="pollutionDetails" > </div>
     <div id="date-filter" class="date-filter custom-table mt-3" style="display:none;">
@@ -42,9 +40,7 @@
         <input type="date" id="startDate" class="custom-table">
         <label for="endDate" style="margin: 10px;" class="fs-5 fw-semibold">to</label>
         <input type="date" id="endDate">
-       
         <button type="button" id="applyDateFilter" class="btn btn-secondary custom-table">APPLY</button>
-
     </div>
     
     <div id="chartOptions" class="chartdata" style="display:none;" >
@@ -52,11 +48,11 @@
             <div class="col-10">
                 <div class="chart-container" >
                     <h2 id="chartTitle"></h2>
-                    <canvas id="pollutionChart" width="300" height="200"></canvas>
+                    <canvas id="pollutionChart" width="300" height="150"></canvas>
                 </div>
             </div>
             <div class="col-2 mt-4">
-                <p class="mt-5">Select which type of graph data you want? </p>
+                <p class="mt-5">Select type of graph data you want to see? </p>
                 <p>Note:By default it shows the bar graph</p>
                 <ul class="chart-type-container ">
                     <li>
@@ -72,7 +68,7 @@
                         </label>
                     </li>
                 </ul>
-                <p class="mt-5">Select which type of pollution data you want? </p>
+                <p class="mt-5">Select type of air pollution data you want to see? </p>
                 <p>Note:By default it shows the AQI</p>
                 <ul class="checkbox-container" >
                     <li>
@@ -117,23 +113,16 @@
                             <span class="fs-5">Show SO2</span>
                         </label>
                     </li>  
-                </div>
+                
             </div>
-
-        </div>    
-        
-            
-           
-    
-            
         </div>
-    
-    
+    </div>  
+    <div>
+        <canvas id="myChart"></canvas>
+      </div>   
     <script>
         // Call showPollutionDetails function by default when the page loads
-
-
-        function showWeatherDetails() {
+         function showWeatherDetails() {
             document.getElementById("weatherDetails").style.display = "block";
             document.getElementById("pollutionDetails").style.display = "none";
             document.getElementById("date-filter").style.display = "none";
@@ -462,9 +451,9 @@ fetchAirQualityCurrentData(city, state).then(airQualityData => {
                                 x: {
                                     type: 'time',
                                     time: {
-                                        unit: 'hour',
+                                        unit: 'day',
                                         displayFormats: {
-                                            hour: 'MMM D, hA'
+                                            hour: 'MMM D'
                                         }
                                     }
                                 },
@@ -572,7 +561,8 @@ fetchAirQualityCurrentData(city, state).then(airQualityData => {
                 }
   
 
-            })           
+            })  
+                     
  }
  window.addEventListener('load', () => {
     showPollutionDetails();
