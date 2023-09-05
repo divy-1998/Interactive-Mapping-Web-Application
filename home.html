@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map with search chart,weather,info</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/95f4248091.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary-subtle mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="airPollution.html">Air pollution</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="About.html">About</a>
+                    </li>
+                    <li class="nav-item"">
+                        <a class="nav-link active " aria-current="page" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Account.html">Account</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Explore your Air Quality</h2>
+            </div>
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" id="citySearch" class="form-control search-box" placeholder="Enter a city name">
+                    <button class="btn btn-outline-primary btn-search" type="button" id="searchButton">
+                        <i class="fas fa-search ms-2"></i>
+                    </button>
+                    <span class="or-text ms-2"> or </span>
+                    <button class="btn btn-outline-primary location-btn"><i class="fa-solid fa-location-dot"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container m-5 " >
+        <div class="row">
+            <div class="col-lg-8">
+                <div id="map" class="full-width-map  bg-light"></div>
+            </div>
+            <div class="col-lg-4">
+                <div id="buttonContainer1" class="p-4">
+                    <button  class="btn btn1" style="background-color: green;"></button>
+                <span >Good (0-50) </span></br>
+                </div>
+                <div id="buttonContainer2" class="p-4">
+                    <button  class="btn btn2" style="background-color: yellow;"></button>
+                    <span> Moderate (51 - 100)</span></br>
+                </div>
+                <div id="buttonContainer3" class=" p-4">
+                    <button  class="btn btn3" style="background-color: orange;"></button>
+                    <span> Unhealthy for Sensitive Groups (101 -150)</span></br>
+                </div>
+                <div id="buttonContainer4" class="p-4">
+                    <button  class="btn btn4" style="background-color: red;"></button>
+                    <span>Unhealthy (151-200)</span></br>
+                </div>
+                <div id="buttonContainer5" class="p-4">
+                    <button  class="btn btn5" style="background-color: purple;"></button>
+                    <span>Very Unhealthy (200 - 300)</span></br>
+                </div>
+                <div id="buttonContainer6" class="p-4">
+                    <button class="btn btn6" style="background-color: maroon;"></button>
+                    <span>Hazardous ( 300+ )</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+
+    <footer class="footer" >
+        <div class="container">
+            <span class="text-muted">Your footer content here</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-a-5lXv4V7Lwuql39W8qzH-VPfCywIW4&callback=initMap&v=weekly" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
+    <script src="script1.js"></script>
+</body>
+</html>
