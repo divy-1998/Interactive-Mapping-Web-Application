@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Recently Submitted Problems</h1>
+    <div>
+        <ul>
+            <% submittedData.forEach(data => { %>
+                <li>
+                    <strong>Category:</strong> <%= data.issueCategory %><br>
+                    <strong>Summarised Problem:</strong> <%= data.summariseproblem %><br>
+                    <strong>Description:</strong> <%= data.issueDescription %><br>
+                    <!-- Add other fields as needed -->
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+<script>
+    res.redirect('/submitted');
+</script>
+</html>

@@ -1,0 +1,96 @@
+/* Reset some default browser styles */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.navbar {
+    background-color: #007bff; 
+    color: white;
+}
+
+.navbar .navbar-nav .nav-link {
+    color: white;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#map {
+    min-height: 600px; /* Set a minimum height for the map container */
+}
+
+.btn-search {
+    font-size: 1.5rem; /* Adjust the size as needed */
+}
+
+.btn1,.btn2,.btn3,.btn4,.btn5,.btn6 {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    margin-right: 10px;
+}
+
+/* Style for the full-width map */
+.full-width-map {
+    width: 100%; /* Make the map take up 100% width */
+    height: 100%; /* Set an initial height for the map */
+}
+/* CSS to decrease the size of the forecast image */
+.forecast-image {
+    width: 50px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+
+
+/* Style for the chart data and weather data containers (you can customize these as needed) */
+.chartdata, .weather-data {
+    margin-top: 20px;
+    /* Add other styling as needed */
+}
+
+/* Style for the footer (customize as needed) */
+.footer {
+    background-color: #f8f9fa; /* Footer background color */
+    padding: 10px 0;
+    text-align: center;
+}
+.btn-search:focus {
+    outline: none; /* Remove the focus outline */
+}
+#citySearch:focus{
+    outline-style:none;
+    box-shadow: none;
+  
+}
+.or-text {
+    display: inline-block;
+    margin: 0 10px; /* Adjust the margin as needed */
+    color: #333; /* Text color */
+    font-weight: bold;
+}
+
+/* Define a custom class for white text color */
+.white-text {
+    color: white;
+}
+
+
+#mediaPreview img,#mediaPreview video {
+max-width: 100%;
+height: auto;
+max-height: 100px; 
+
+}
+
+
+
+
+

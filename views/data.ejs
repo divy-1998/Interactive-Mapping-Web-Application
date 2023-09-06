@@ -1,0 +1,34 @@
+<!-- views/data.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Page</title>
+</head>
+<body>
+  <h1>Data Page</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>issueCategory</th>
+        <th>summariseproblem</th>
+        <th>mediaField</th>
+        <th>issueDescription</th>
+        <th>name</th>
+        <th>email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(item => { %>
+        <tr>
+          <td><%= item.issueCategory %></td>
+          <td><%= item.summariseproblem %></td>
+          <td><%= item.mediaField %></td>
+          <td><%= item.issueDescription %></td>
+          <td><%= item.name %></td>
+          <td><%= item.email %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

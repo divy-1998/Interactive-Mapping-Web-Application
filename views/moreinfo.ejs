@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Details</title>
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
-<style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
     .custom-blue {
         background-color: #0a67e1; /* Replace with your desired color code */
         color: #fff; /* Text color (usually white for dark backgrounds) */
@@ -31,9 +33,86 @@
 </head>
 <body>
     <button id="pollutionButton">Pollution</button>
-    <button id="weatherButton">Weather</button>
+    <button id="weatherButton">Weather</button> 
     <div id="weatherDetails" ></div>
     <div id="pollutionDetails" > </div>
+    <div id="chartOptions1" class="chartdata1 m-4" style="display: none;">
+        <h2 class="mb-4">Air Quality Forecast Data</h2>
+        <p class="fw-semibold">(Graph provides a 3-day/hourly forecast of air quality. It presents air quality data on the 6 major surfaces pollutants - PM 2.5, PM 10, CO, SO2, NO2, and O3. Additionally, this graph displays an air quality index score(AQI). )</p>
+        <div class="row">
+            <div class="col-10">
+                <div class="chart-container" >
+                    <h2 id="chartTitle1"></h2>
+                    <canvas id="pollutionChart1" width="300" height="150"></canvas>
+                </div>
+            </div>
+            <div class="col-2 mt-4">
+                <p class="mt-5">Select type of graph data you want to see? </p>
+                <p>Note:By default it shows the bar graph</p>
+                <ul class="chart-type-container ">
+                    <li>
+                        <label class="mt-2">
+                            <input type="checkbox" id="showBar1" checked>
+                            <span class="fs-5">Show Bar Chart</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="mt-4">
+                            <input type="checkbox" id="showLine1">
+                            <span class="fs-5">Show Line Chart</span>
+                        </label>
+                    </li>
+                </ul>
+                <p class="mt-5">Select type of air pollution data you want to see? </p>
+                <p>Note:By default it shows the AQI</p>
+                <ul class="checkbox-container" >
+                    <li>
+                        <label>
+                            <input type="checkbox" id="aqi1" checked>
+                            <span class="fs-5">Show AQI</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" id="showPM25-1">
+                            <span class="fs-5">Show PM2.5</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" id="showO3-1">
+                            <span class="fs-5">Show O3</span>
+                        </label>
+                    </li>
+                   <li>
+                    <label>
+                        <input type="checkbox" id="showco-1">
+                        <span class="fs-5">Show CO</span>
+                    </label>
+                   </li>
+                   <li>
+                    <label>
+                        <input type="checkbox" id="showno2-1">
+                        <span class="fs-5">Show NO2</span>
+                    </label>
+                   </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" id="showpm10-1">
+                            <span class="fs-5">Show PM10</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" id="showso2-1">
+                            <span class="fs-5">Show SO2</span>
+                        </label>
+                    </li>  
+                
+            </div>
+            
+        </div>
+    </div> 
     <div id="date-filter" class="date-filter custom-table mt-3" style="display:none;">
         <h4 class="mb-3 fs-3">History of Air Quality data in graph</h4>
         <label for="startDate"  class="fs-5 fw-semibold">Select Time Period Date from</label>
@@ -117,16 +196,16 @@
             </div>
         </div>
     </div>  
-    <div>
-        <canvas id="myChart"></canvas>
-      </div>   
+     
     <script>
+        
         // Call showPollutionDetails function by default when the page loads
          function showWeatherDetails() {
             document.getElementById("weatherDetails").style.display = "block";
             document.getElementById("pollutionDetails").style.display = "none";
             document.getElementById("date-filter").style.display = "none";
             document.getElementById("chartOptions").style.display = "none";
+            document.getElementById("chartOptions1").style.display = "none";
         }
 
         // Function to show pollution details and hide weather details
@@ -135,6 +214,7 @@
             document.getElementById("pollutionDetails").style.display = "block";
             document.getElementById("date-filter").style.display = "block";
             document.getElementById("chartOptions").style.display = "none";
+            document.getElementById("chartOptions1").style.display = "block";
         }
 
         // Event listeners for button clicks
@@ -198,6 +278,17 @@
                     throw error;
                 }
             }
+
+            async function fetchAirQualityForecastData(city, state) {
+                const apiUrl =`https://api.weatherbit.io/v2.0/forecast/airquality?city=${encodeURIComponent(city)}&state=${encodeURIComponent(state)}&country=UK&key=${apiKey}`;
+              try {
+                     const response = await fetch(apiUrl);
+                     return await response.json();
+                 } catch (error) {
+                     console.error(`Error fetching air quality data for ${city}, ${state}:`, error);
+                     throw error;
+                 }
+             }
 
             
 
@@ -561,13 +652,243 @@ fetchAirQualityCurrentData(city, state).then(airQualityData => {
                 }
   
 
-            })  
+            }) 
+            
+            const ctx1 = document.getElementById('pollutionChart1').getContext('2d');
+
+                let aqi1 = [];
+                let pm25Values1 = [];
+                let o3Values1 = [];
+                let coValues1 = [];
+                let no2Values1 = [];
+                let pm10Values1 = [];
+                let so2Values1= [];
+                let timestamps1= [];
+                let chart1=null;
+                
+                fetchAirQualityForecastData(city,state).then(data => {
+                    console.log(data);
+                    
+                    timestamps1 = data.data.map(entry => entry.timestamp_local);
+                    aqi1= data.data.map(entry => entry.aqi);
+                    pm25Values1 = data.data.map(entry => entry.pm25);
+                    o3Values1 = data.data.map(entry => entry.o3);
+                    coValues1 = data.data.map(entry => entry.co);
+                    no2Values1 = data.data.map(entry => entry.no2);
+                    pm10Values1 = data.data.map(entry => entry.pm10);
+                    so2Values1 = data.data.map(entry => entry.so2);
+                    
+                    console.log(aqi1)
+                    initializeChart1('bar',aqi1, pm25Values1, o3Values1,  coValues1, no2Values1, pm10Values1, so2Values1, timestamps1, city);
+                    
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+              
+                function initializeChart1(chartType1,aqi1,pm25Data, o3Data,coData, no2Data,pm10data, so2Data,timestamps,city) {
+                    console.log(aqi1);
+                    
+                    if(chart1){
+                        chart1.destroy();
+                    }
+                    chart1 = new Chart(ctx1, {
+                        type: chartType1,
+                        
+                        data: {
+                            labels: timestamps,
+                            datasets: [
+                                {
+                                    label: 'AQI',
+                                    data: aqi1,
+                                    backgroundColor: 'Yellow',
+                                    borderColor: 'Yellow',
+                                    borderWidth: 1,
+                                    fill: chartType1 == 'bar',
+                                    hidden: false 
+                                },
+                                {
+                                label: 'PM25Data',
+                                data: pm25Data,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                                fill: chartType1 == 'bar',
+                                hidden: true // Show PM2.5 by default
+                            },
+                            {
+                                label: 'O3 Levels',
+                                data: o3Data,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1,
+                                fill: chartType1 == 'bar',
+                                hidden: true // Hide O3 by default
+                            },
+                            {
+                                label: 'co Data',
+                                data:coData,
+                                backgroundColor: 'red',
+                                borderColor: 'red',
+                                borderWidth: 1,
+                                fill: chartType1 == 'bar',
+                                hidden: true 
+                            },
+                            {
+                                label: 'no2 Data',
+                                data:no2Data,
+                                backgroundColor: 'brown',
+                                borderColor: 'brown',
+                                borderWidth: 1,
+                                fill: chartType1 == 'bar',
+                                hidden: true 
+                            },
+                            {
+                                label: 'pm10 Data',
+                                data:pm10data,
+                                backgroundColor: 'purple',
+                                borderColor: 'purple',
+                                borderWidth: 1,
+                                fill: chartType1 == 'bar',
+                                hidden: true // Show PM2.5 by default
+                            },
+                            {
+                                label: 'so2 Data',
+                                data:so2Data,
+                                backgroundColor: 'Teal',
+                                borderColor: 'Teal',
+                                borderWidth: 1,
+                                fill:chartType1 == 'bar',
+                                hidden: true // Show PM2.5 by default
+                            },
+                        ]
+                        },
+                        options: {
+                            
+                            scales: {
+                                x: {
+                                    type: 'time',
+                                    time: {
+                                        unit: 'day',
+                                        displayFormats: {
+                                            hour: 'MMM D'
+                                        }
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Air Quality Levels'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    onClick: (event, legendItem, legend) => {
+                                        const datasetIndex = legendItem.datasetIndex;
+                                        chart1.data.datasets.forEach((dataset, index) => {
+                                            if (index === datasetIndex) {
+                                                dataset.hidden = false;
+                                            } else {
+                                                dataset.hidden = true;
+                                            }
+                                        });
+                                        chart1.update();
+                                    }
+                                
+                                },
+                                title: {
+                                    display: true,
+                                    text: `${city}`,
+                                    color: 'blue',
+                                    font: {
+                                      size: 20,
+                                      weight: 'normal',
+                                      style: 'bold'
+                                    }
+                                }
+                            }
+                            
+                        }
+                    });
+                
+                   
+                    
+                    const showBarCheckbox = document.getElementById('showBar1');
+                   const showLineCheckbox = document.getElementById('showLine1');
+                
+                   showBarCheckbox.addEventListener('change', () => {
+                       if (showBarCheckbox.checked) {
+                            showLineCheckbox.checked = false;
+                           chart1.destroy();
+                           initializeChart1('bar', aqi1, pm25Data, o3Data, coData, no2Data, pm10data, so2Data, timestamps, city);
+                       }
+                   });
+                
+                   showLineCheckbox.addEventListener('change', () => {
+                       if (showLineCheckbox.checked) {
+                            showBarCheckbox.checked = false;
+                           chart1.destroy();
+                           initializeChart1('line', aqi1, pm25Data, o3Data, coData, no2Data, pm10data, so2Data, timestamps, city);
+                       }
+                   });
+                    const showPM25Checkbox = document.getElementById('showPM25-1');
+                    const showO3Checkbox = document.getElementById('showO3-1');
+                    const showaqiCheckbox = document.getElementById('aqi1');
+                    const showcoCheckbox = document.getElementById('showco-1');
+                    const showno2Checkbox = document.getElementById('showno2-1');
+                    const showpm10Checkbox = document.getElementById('showpm10-1');
+                    const showso2Checkbox = document.getElementById('showso2-1');
+                
+                    showaqiCheckbox.addEventListener('change', () => {
+                        chart1.data.datasets[0].hidden = !showaqiCheckbox.checked;
+                        console.log(chart1.data)
+                        chart1.update();
+                    });
+                
+                    showPM25Checkbox.addEventListener('change', () => {
+                        chart1.data.datasets[1].hidden = !showPM25Checkbox.checked;
+                        chart1.update();
+                    });
+                
+                    showO3Checkbox.addEventListener('change', () => {
+                        chart1.data.datasets[2].hidden = !showO3Checkbox.checked;
+                        chart1.update();
+                    });
+                
+                    showcoCheckbox.addEventListener('change', () => {
+                        chart1.data.datasets[3].hidden = !showcoCheckbox.checked;
+                        chart1.update();
+                    });
+                
+                    showno2Checkbox.addEventListener('change', () => {
+                        chart1.data.datasets[4].hidden = !showno2Checkbox.checked;
+                        chart1.update();
+                    });
+                
+                    showpm10Checkbox.addEventListener('change', () => {
+                        chart1.data.datasets[5].hidden = !showpm10Checkbox.checked;
+                        chart1.update();
+                    });
+                    showso2Checkbox.addEventListener('change', () => {
+                        chart1.data.datasets[6].hidden = !showso2Checkbox.checked;
+                        chart1.update();
+                    });
+                   
+                    
+                }
+  
+
+              
                      
  }
  window.addEventListener('load', () => {
     showPollutionDetails();
 });        
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
