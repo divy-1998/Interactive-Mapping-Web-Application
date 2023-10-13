@@ -439,7 +439,8 @@ fetchAirQualityCurrentData(city, state).then(airQualityData => {
                 const startDate = document.getElementById('startDate').value;
                 const endDate = document.getElementById('endDate').value;
                 document.getElementById('chartOptions').style.display = 'block';
-                fetchAirQualityHistoryData(city,state, startDate,endDate).then(data => {
+        
+      fetchAirQualityHistoryData(city,state, startDate,endDate).then(data => {
                     //console.log(data);
                     
                     timestamps = data.data.map(entry => entry.timestamp_local);
