@@ -32,39 +32,64 @@
 </style>
 </head>
 <body>
-    <button id="pollutionButton">Pollution</button>
-    <button id="weatherButton">Weather</button> 
+    <nav class="navbar navbar-expand-lg bg-primary bg-opacity-75  mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item ">
+                        <a class="nav-link active" aria-current="page" href="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="airPollution">Air pollution</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item"">
+                        <a class="nav-link active " aria-current="page" href="contact">Contact</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <button id="pollutionButton" style="display:none">Pollution</button>
+    <button id="weatherButton" style="display:none">Weather</button> 
     <div id="weatherDetails" ></div>
     <div id="pollutionDetails" > </div>
-    <div id="chartOptions1" class="chartdata1 m-4" style="display: none;">
-        <h2 class="mb-4">Air Quality Forecast Data</h2>
-        <p class="fw-semibold">(Graph provides a 3-day/hourly forecast of air quality. It presents air quality data on the 6 major surfaces pollutants - PM 2.5, PM 10, CO, SO2, NO2, and O3. Additionally, this graph displays an air quality index score(AQI). )</p>
+    <div id="chartOptions1" class="chartdata1 " >
+        <h2 class="ps-5">Air Quality Forecast Data</h2>
+        <p class="fst-italic text-muted ps-3">(Graph provides a 3-day/hourly forecast of air quality. It presents air quality data on the 6 major surfaces pollutants - PM 2.5, PM 10, CO, SO2, NO2, and O3. Additionally, this graph displays an air quality index score(AQI). )</p>
+        <p class="fst-italic text-danger ps-3">Note:By default it shows the bar graph</p>
+        <ul class="chart-type-container d-flex">
+            <p class="px-3 ps-5 pt-1 fst-italic">Select type of graph data you want to see? </p>
+            <li>
+                <label class="px-3">
+                    <input type="checkbox" id="showBar1" checked>
+                    <span class="fs-5">Show Bar Chart</span>
+                </label>
+            </li>
+            <li>
+                <label class="px-3">
+                    <input type="checkbox" id="showLine1">
+                    <span class="fs-5">Show Line Chart</span>
+                </label>
+            </li>
+        </ul>
         <div class="row">
             <div class="col-10">
-                <div class="chart-container" >
+                <div class="chart-container ps-5" >
                     <h2 id="chartTitle1"></h2>
                     <canvas id="pollutionChart1" width="300" height="150"></canvas>
                 </div>
             </div>
             <div class="col-2 mt-4">
-                <p class="mt-5">Select type of graph data you want to see? </p>
-                <p>Note:By default it shows the bar graph</p>
-                <ul class="chart-type-container ">
-                    <li>
-                        <label class="mt-2">
-                            <input type="checkbox" id="showBar1" checked>
-                            <span class="fs-5">Show Bar Chart</span>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="mt-4">
-                            <input type="checkbox" id="showLine1">
-                            <span class="fs-5">Show Line Chart</span>
-                        </label>
-                    </li>
-                </ul>
+               
                 <p class="mt-5">Select type of air pollution data you want to see? </p>
-                <p>Note:By default it shows the AQI</p>
+                <p class="text-danger">Note:By default it shows the AQI</p>
                 <ul class="checkbox-container" >
                     <li>
                         <label>
@@ -114,7 +139,7 @@
         </div>
     </div> 
     <div id="date-filter" class="date-filter custom-table mt-3" style="display:none;">
-        <h4 class="mb-3 fs-3">History of Air Quality data in graph</h4>
+        <h4 class="mb-2 fs-3">History of Air Quality data in graph</h4>
         <label for="startDate"  class="fs-5 fw-semibold">Select Time Period Date from</label>
         <input type="date" id="startDate" class="custom-table">
         <label for="endDate" style="margin: 10px;" class="fs-5 fw-semibold">to</label>
@@ -123,32 +148,33 @@
     </div>
     
     <div id="chartOptions" class="chartdata" style="display:none;" >
-        <div class="row">
-            <div class="col-10">
-                <div class="chart-container" >
-                    <h2 id="chartTitle"></h2>
-                    <canvas id="pollutionChart" width="300" height="150"></canvas>
-                </div>
-            </div>
-            <div class="col-2 mt-4">
-                <p class="mt-5">Select type of graph data you want to see? </p>
-                <p>Note:By default it shows the bar graph</p>
-                <ul class="chart-type-container ">
+        <p class="fst-italic text-danger ps-5">Note:By default it shows the bar graph</p>
+                <ul class="chart-type-container d-flex">
+                    <p class="px-3 ps-5 pt-1">Select type of graph data you want to see? </p>
                     <li>
-                        <label class="mt-2">
+                        <label class="px-3">
                             <input type="checkbox" id="showBar" checked>
                             <span class="fs-5">Show Bar Chart</span>
                         </label>
                     </li>
                     <li>
-                        <label class="mt-4">
+                        <label class="px-3">
                             <input type="checkbox" id="showLine">
                             <span class="fs-5">Show Line Chart</span>
                         </label>
                     </li>
                 </ul>
-                <p class="mt-5">Select type of air pollution data you want to see? </p>
-                <p>Note:By default it shows the AQI</p>
+        <div class="row">
+            <div class="col-10">
+                <div class="chart-container ps-5" >
+                    <h2 id="chartTitle"></h2>
+                    <canvas id="pollutionChart" width="300" height="150"></canvas>
+                </div>
+            </div>
+            <div class="col-2 mt-4">
+                
+                <p class="mt-5 text-bold">Select type of air pollution data you want to see? </p>
+                <p class="text-danger">Note:By default it shows the AQI</p>
                 <ul class="checkbox-container" >
                     <li>
                         <label>
@@ -234,8 +260,7 @@
         const queryParams = getQueryParameters();
         const city = queryParams.city;
         const state = queryParams.state;
-        console.log(city);
-        const apiKey = "a62aaa5ad1d14ac985d3ef58dabd799a";
+        const apiKey = "9e2859491cdf4bd08226e2e4276e6acc";
 
         // Check if the city and state are defined
         if (!city || !state) {
@@ -266,6 +291,7 @@
                     throw error;
                 }
             }
+
             async function fetchAirQualityHistoryData(city, state, startDate, endDate) {
                // const apiUrl = `https://api.weatherbit.io/v2.0/current/airquality?city=${encodeURIComponent(city)}&state=${encodeURIComponent(state)}&country=UK&key=${apiKey}`;
              //const apiUrl =`https://api.weatherbit.io/v2.0/history/airquality?city=${encodeURIComponent(city)}&state=${encodeURIComponent(state)}&country=UK&key=${apiKey}`;
@@ -332,24 +358,16 @@ fetchAirQualityCurrentData(city, state).then(airQualityData => {
         if (airQualityData.data && airQualityData.data.length > 0) {
             const airQualityItem = airQualityData.data[0];
             pollutionDetails.innerHTML = `
-            <div class="card mt-3 mb-3 container custom-blue" style="width: 30rem;">
+            <div class="card mt-3 mb-3 container bg-primary bg-opacity-75 ">
                 <div class="card-body">
-                    <h1 class="card-title text-center">${city} , ${state}</h1>
+                    <h1 class="card-title text-center text-white">${city} , ${state}</h1>
                     <h4 class="card-subtitle mt-4 mb-2 white-text text-center">Air Quality Index : ${airQualityItem.aqi}</h4>
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="card-subtitle mt-3 mb-2 white-text text-center">Latitude : ${airQualityData.lat} &deg; C</h5>
-                        </div>
+                    <div class="d-flex justify-content-center">
+                        <h5 class="card-subtitle mt-2  mb-2 white-text text-center">Latitude : ${airQualityData.lat} &deg; C</h5>
+                        <h5 class="card-subtitle px-5 mt-2 mb-2 white-text text-center">Longitude : ${airQualityData.lon} &deg; C:</h5>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="card-subtitle mt-2 mb-2 white-text text-center">Longitude : ${airQualityData.lon} &deg; C:</h5>
-                        </div>
-                     </div>
                 </div>
             </div>
-            
-            
             <h4 class="custom-table mb-4">Current Air Quality in ${city} , ${state}</h6>
 
                 <div class="row">
@@ -398,12 +416,12 @@ fetchAirQualityCurrentData(city, state).then(airQualityData => {
             </div>
             <div class="col-6">
                 <ul>
-                    <li class="mb-4 fs-4">O3: Concentration of surface O3 (µg/m³)</li>
-                    <li class="mb-4 fs-4">SO2: Concentration of surface SO2 (µg/m³)</li>
-                    <li class="mb-4 fs-4">NO2: Concentration of surface NO2 (µg/m³)</li>
-                    <li class="mb-4 fs-4">CO: Concentration of carbon monoxide (µg/m³)</li>
-                    <li class="mb-4 fs-4">PM25: Concentration of particulate matter < 2.5 microns (µg/m³)</li>
-                    <li class="mb-4 fs-4">PM10: Concentration of particulate matter < 10 microns (µg/m³)</li>
+                    <li class="mb-4 fs-5">O3: Concentration of surface O3 (µg/m³)</li>
+                    <li class="mb-4 fs-5">SO2: Concentration of surface SO2 (µg/m³)</li>
+                    <li class="mb-4 fs-5">NO2: Concentration of surface NO2 (µg/m³)</li>
+                    <li class="mb-4 fs-5">CO: Concentration of carbon monoxide (µg/m³)</li>
+                    <li class="mb-4 fs-5">PM25: Concentration of particulate matter < 2.5 microns (µg/m³)</li>
+                    <li class=" fs-5">PM10: Concentration of particulate matter < 10 microns (µg/m³)</li>
                 </ul>
             </div>
             
@@ -439,8 +457,7 @@ fetchAirQualityCurrentData(city, state).then(airQualityData => {
                 const startDate = document.getElementById('startDate').value;
                 const endDate = document.getElementById('endDate').value;
                 document.getElementById('chartOptions').style.display = 'block';
-        
-      fetchAirQualityHistoryData(city,state, startDate,endDate).then(data => {
+                fetchAirQualityHistoryData(city,state, startDate,endDate).then(data => {
                     //console.log(data);
                     
                     timestamps = data.data.map(entry => entry.timestamp_local);

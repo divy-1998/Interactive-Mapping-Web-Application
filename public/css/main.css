@@ -4,13 +4,10 @@ body, html {
     margin: 0;
     padding: 0;
 }
-.navbar {
-    background-color: #007bff; 
-    color: white;
-}
 
-.navbar .navbar-nav .nav-link {
-    color: white;
+.navbar .navbar-nav .nav-item:hover .nav-link{
+    
+    color: rgb(248, 245, 245);
 }
 
 .search-container {
@@ -21,7 +18,7 @@ body, html {
 }
 
 #map {
-    min-height: 600px; /* Set a minimum height for the map container */
+    min-height: 350px; /* Set a minimum height for the map container */
 }
 
 .btn-search {
@@ -29,11 +26,16 @@ body, html {
 }
 
 .btn1,.btn2,.btn3,.btn4,.btn5,.btn6 {
+    cursor: pointer;
     width: 20px;
     height: 20px;
     border-radius: 50%;
     border: none;
     margin-right: 10px;
+}
+.buttonfont{
+    cursor: pointer;
+    font-size: 1.0rem;
 }
 
 /* Style for the full-width map */
@@ -56,12 +58,11 @@ body, html {
     /* Add other styling as needed */
 }
 
-/* Style for the footer (customize as needed) */
-.footer {
-    background-color: #f8f9fa; /* Footer background color */
-    padding: 10px 0;
-    text-align: center;
+
+.footerlink:hover {
+    color: rgb(225, 61, 61);
 }
+
 .btn-search:focus {
     outline: none; /* Remove the focus outline */
 }
@@ -81,16 +82,113 @@ body, html {
 .white-text {
     color: white;
 }
-
-
 #mediaPreview img,#mediaPreview video {
 max-width: 100%;
 height: auto;
 max-height: 100px; 
 
 }
-
-
-
-
-
+.postCom {
+    display: block;
+    margin-left: 25%;
+  }
+.img-fluid {
+    float: right;
+    margin: 10%;
+    width:  100px;
+    height: 100px;
+    background-size: cover;
+}
+/* CSS to position the close button at the top-right corner */
+.close-button {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 10px; /* Adjust the right position as needed */
+    z-index: 9999;
+    cursor: pointer;
+  }
+  .img-fluid1{
+    float: right;
+    margin: 5%;
+    width:  200px;
+    height: 200px;
+    background-size: cover;
+  }
+  .img-fluid2{
+    float: right;
+    margin: 5%;
+    width:  250px;
+    height: 250px;
+    background-size: cover;
+  }
+ 
+.custom-modal-title {
+    background-color: rgb(152, 149, 149); 
+}
+label {
+    font-weight: bold;
+}
+input[type="file"] {
+    margin-bottom: 15px;
+}
+#summariseproblem {
+    width: 100%; /* Set the width as needed */
+    padding: 10px; /* Add padding for spacing inside the input */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add rounded corners */
+    font-size: 16px; /* Set the font size */
+    color: #333; /* Set text color */
+  }
+  
+  /* Optional: Style the input when it's in focus (clicked or selected) */
+  #summariseproblem:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove the default blue outline */
+    /* Add any other styles you want on focus */
+  }
+  #textboxes1{
+    width: 100%; /* Set the width as needed */
+    padding: 10px; /* Add padding for spacing inside the input */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add rounded corners */
+    font-size: 16px; /* Set the font size */
+    color: #333; 
+  }
+  #textboxes2{
+    width: 100%; /* Set the width as needed */
+    padding: 10px; /* Add padding for spacing inside the input */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add rounded corners */
+    font-size: 16px; /* Set the font size */
+    color: #333; 
+  }
+  #textboxes3{
+    width: 100%; /* Set the width as needed */
+    padding: 10px; /* Add padding for spacing inside the input */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add rounded corners */
+    font-size: 16px; /* Set the font size */
+    color: #333; 
+  }
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-color: #007bff;
+    border-radius: 5px;
+}
+.contact{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-color: #a4c8ee;
+    border-radius: 5px;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-color: #007bff;
+    
+    border-radius: 5px;
+}
