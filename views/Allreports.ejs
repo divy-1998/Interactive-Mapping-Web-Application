@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data</title>
+    <script src="https://kit.fontawesome.com/95f4248091.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <style>
+        .img-fluid2{
+            float: right;
+            margin: 5%;
+            width:  200px;
+            height: 200px;
+            background-size: cover;
+          }
+          textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-color: #007bff;
+    
+    border-radius: 5px;
+}
+.scrollable {
+    max-height: 300px; /* Adjust the maximum height as needed */
+    overflow-y: auto; /* Enable vertical scrolling when content exceeds the maximum height */
+}
+    </style>
+</head>
+<body>
+    <% if (session.userID) { %>
+        <nav class="navbar navbar-expand-lg bg-primary bg-opacity-75 mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="airPollution">Air pollution</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">About</a>
+                        </li>
+                        <li class="nav-item"">
+                            <a class="nav-link active " aria-current="page" href="Allreports">All Reports</a>
+                        </li>
+                        <li class="nav-item"">
+                            <a class="nav-link active " aria-current="page" href="contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" id="profileLink">(<%= session.userName %>)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a  class="nav-link active" aria-current="page" href="/logout" >Logout</a>
+                          </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+        
+    <% } else { %>
+        <!-- Your sign-in form here -->
+        <nav class="navbar navbar-expand-lg bg-primary bg-opacity-75  mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item ">
+                            <a class="nav-link active" aria-current="page" href="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="airPollution">Air pollution</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">About</a>
+                        </li>
+                        <li class="nav-item"">
+                            <a class="nav-link active " aria-current="page" href="contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#signInModal">Sign in
+                            </a>
+                          </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <% } %>
+    
+    <div id="report-problem" class="report-problem mx-auto container" >
+        <h4>reported problems</h4>
+        <div class="col-md-8 m-4">
+          <div class="card-body m-4">
+          </div>
+        </div>
+        <form id='commentsReplies'>
+            <div id="repliesContainer">
+                <!-- Replies will be displayed here -->
+              </div>
+        </form>
+    </div>
+    <footer class="footer bg-primary  bg-opacity-75 " >
+        <div class="footeritem container d-flex justify-content-center">
+            <a class="footerlink p-2 fs-5 text-white text-decoration-none text-"  href="home">Home</a>
+            <a class="footerlink p-2 fs-5 text-white text-decoration-none"  href="All Pollution">Air Pollution</a>
+            <a class="footerlink p-2 fs-5 text-white text-decoration-none"  href="">contact</a>
+        </div>
+        <span class="d-flex text-white fs-6 fst-italic justify-content-center">@2023 | All rights reserved</span>
+    </footer>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const cityName = urlParams.get('cityName');
+        
+        //console.log('City Name:', cityName);
+        async function searchProblems() {
+            try {
+                const response = await fetch('/moreproblems'); // Fetch all problems without specifying a city
+                if (response.ok) {
+                    const allProblems = await response.json();
+                    console.log(allProblems);
+                    displayProblems(allProblems);
+                } else {
+                    console.error('Error searching for problems:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error searching for problems:', error);
+            }
+        }
+       
+      
+     
+        function createCard(item, index) {
+            
+            const card = document.createElement('div');
+            card.classList.add('card');
+            const formId = `commentsReplies${index}`;
+           // console.log(item);
+
+
+            card.innerHTML = `
+            <div class="card">
+            <div class="row no-gutters">
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.issueCategory}</h5>
+                        <p class="card-text">${item.name}</p>
+                        <p class="card-text">${item.email}</p>
+                        <p class="card-text">${item.Summariseproblem}</p>
+                        <p class="card-text"><small class="text-body-secondary">${item.issueDescription}</small></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card-media">
+                        ${
+                            item.mediaField.endsWith('.jpg') || item.mediaField.endsWith('.png') || item.mediaField.endsWith('.jpeg')
+                                ? `<img class="img-fluid2" src="${item.mediaField}" alt="Image">`
+                                : ''
+                        }
+                        ${
+                            item.mediaField.endsWith('.mp4') || item.mediaField.endsWith('.webm') || item.mediaField.endsWith('.ogg')
+                                ? `
+                                    <video class="img-fluid2" controls>
+                                        <source src="${item.mediaField}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>`
+                                : ''
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <i  class="fa-regular fa-comment-dots commentbutton mb-4 mx-auto"><span id="commentCount"></span></i> 
+                
+                <form id="${formId}" class="m-4" style="display: none;">
+                    <fieldset name="post">
+                        <button class="postCom" type="button">Leave a comment</button>
+                    </fieldset>
+                    <fieldset name="comments" style="display: none;">
+                        <legend>Comments</legend>
+                         <input type="hidden" name="problemId" value="${item.ID}" />
+                         <textarea name="commentText" placeholder="Enter your comment"></textarea>
+                         <button class='postComment' type='button'>Done</button>
+                         <button class='postReply' type='button' style='display: none;'>Reply</button>
+                </fieldset>
+                <div class="comment-section scrollable"  id="commentSection${item.ID}">
+                
+                </div>
+                 </form>
+             `;
+        
+            return card;
+        }
+       
+        async function displayProblems(problems) {
+            console.log(problems);
+            const problemContainer = document.querySelector('.report-problem .card-body');
+            problemContainer.innerHTML = ''; // Clear existing content
+        
+            if (problems.length === 0) {
+                problemContainer.innerHTML = '<p>No problems found for this city.</p>';
+            } else {
+                const reversedProblems = problems.slice().reverse();
+
+                for (let index = 0; index < reversedProblems.length; index++) {
+                 const item = reversedProblems[index];
+                 const card = createCard(item, index);
+                 problemContainer.appendChild(card);
+                }
+                console.log(problems.length);
+                problemContainer.addEventListener('click', function(event) {
+                    const clicked = event.target;
+                    if (clicked.matches('.commentbutton')) {
+                        const card = clicked.closest('.card');
+                        const form = card.querySelector('form');
+                        
+                        if (form.style.display === 'none' || form.style.display === '') {
+                            form.style.display = 'block';
+                        } else {
+                            form.style.display = 'none';
+                        }
+                        return; // Exit the function to avoid other if-else checks
+                    }
+                    if (clicked.matches('.postCom')) {
+                        const form = clicked.closest('form');
+                        if (form) {
+                            post(event);
+                        }
+                    }else if (clicked.matches('.postComment')) {
+                        const form = clicked.closest('form');
+                        if (form) {
+                            post(event);
+                            // Handle the "Done" button click here
+                            console.log('Done button clicked');
+                            // You can call any functions or logic specific to the "Done" button here
+                        }
+                    }
+                    
+                  
+                });
+                
+                problems.forEach(item => {
+                    fetchComments(item.ID);
+                });
+            }
+        }
+        
+
+        function post(event, commentId) {
+            event.preventDefault();
+        
+            const clicked = event.target;
+            const form = clicked.closest('form');
+        
+            if (clicked.matches('.postCom')) {
+                const commentFieldset = form.querySelector('fieldset[name="comments"]');
+                commentFieldset.style.display = 'block';
+            } else if (clicked.matches('.postComment')) {
+                clicked.style.display = 'none';
+        
+                const replyButton = form.querySelector('.postReply');
+                replyButton.style.display = 'inline-block';
+        
+                const problemId = form.querySelector('[name="problemId"]').value;
+                const commentText = form.querySelector('[name="commentText"]').value;
+        
+                const replyTextBox = form.querySelector('textarea[name="commentText"]');
+                replyTextBox.style.display = 'block';
+        
+                const doneButton = form.querySelector('.postDone');
+               // doneButton.style.display = 'block';
+                
+                // Send a POST request to submit the comment
+                fetch('/submitComment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ problem_id: problemId, text: commentText }),
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Comment was successfully submitted
+                            // You can update the UI or handle success as needed
+                            console.log('Comment submitted successfully');
+                            fetchComments(problemId);
+                        } else {
+                            // Handle error if the comment submission fails
+                            console.error('Comment submission failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting comment:', error);
+                    });
+            } else if (clicked.matches('.postReply')) {
+                // Handle the "Reply" button click (e.g., opening the reply text box) here
+                const replyTextBox = form.querySelector('fieldset[name="comments"] textarea[name="commentText"]');
+                const doneButton = form.querySelector('fieldset[name="comments"] .postDone');
+        
+                if (replyTextBox && doneButton) {
+                    replyTextBox.style.display = 'block';
+                    doneButton.style.display = 'block';
+                }
+                
+            } 
+        }
+        function fetchComments(problemId) {
+            console.log(problemId);
+            // Replace '/getComments' with the actual endpoint to retrieve comments by problemId
+            fetch(`/getComments/${problemId}`, {
+                method: 'GET',
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch comments');
+                }
+            })
+            .then(comments => {
+                
+                //console.log(comments);
+                const commentSection = document.getElementById(`commentSection${problemId}`);
+                //console.log(commentSection);
+                if (!commentSection) {
+                    console.error(`Comment section with id 'commentSection${problemId}' not found.`);
+                    return;
+                }
+                commentSection.innerHTML = ''; // Clear any existing content
+                
+                const reversedComments = comments.slice().reverse();
+                
+                reversedComments.forEach((comment, commentIndex) => {
+                    const card = createCard1(comment, commentIndex);
+                    commentSection.appendChild(card);
+                   // console.log(comments.length)
+                });
+              
+        
+                // Display comments in your UI
+                console.log('Comments:', comments);
+              
+                // You can update the UI to display the comments here
+            })
+            .catch(error => {
+                console.error('Error fetching comments:', error);
+            });
+          
+        }
+       function createCard1(comment, commentIndex) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+         card.innerHTML = `
+        <div class="comment-card">
+            <div class="comment-text">${comment.text}</div>
+            
+            <a class="postReply fa-solid fa-reply" data-commentid="${comment.id}" onclick="showReplyForm(${comment.id}) " style="float: right;"></a>
+            <form id="replyForm${comment.id}" style="display:none;">
+                <textarea name="replyText" placeholder="Enter your reply"></textarea>
+                <button class="postDone" data-commentid1="${comment.id}"  onclick="submitReply(${comment.id})">Done</button>
+            </form>
+            <div id="repliesContainer${comment.id}" class="scrollable"></div>
+        </div>
+    `;
+
+    return card;
+}
+
+        function createCard2(reply) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    let date = new Date(reply.created_at);
+    let day = date.getDate();
+    let month = date.getMonth() + 1; // Adding 1 because getMonth() returns 0-11 for months
+    let year = date.getFullYear();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+
+// Ensure leading zeros for single-digit days, months, hours, and minutes
+if (day < 10) {
+    day = `0${day}`;
+}
+if (month < 10) {
+    month = `0${month}`;
+}
+if (hours < 10) {
+    hours = `0${hours}`;
+}
+if (minutes < 10) {
+    minutes = `0${minutes}`;
+}
+
+let formattedDateTime = `${day}:${month}:${year} , ${hours}:${minutes}`;
+
+    card.innerHTML = `
+        <div >
+            <span>${reply.text} , ${formattedDateTime}</span>
+            
+            
+        </div>
+    `;
+
+    return card;
+}
+        function showReplyForm(commentId) {
+            const replyForm = document.getElementById(`replyForm${commentId}`);
+            const replyButton = document.querySelector(`[data-commentid="${commentId}"]`);
+            if (replyForm) {
+                replyForm.style.display = 'block';
+                fetchReply(commentId);
+                replyButton.style.display = 'none';
+            }
+        }
+        
+        function submitReply(commentId) {
+            console.log(commentId);
+            const replyForm = document.getElementById(`replyForm${commentId}`);
+            //console.log(replyForm);
+            if (replyForm) {
+                const replyTextBox = replyForm.querySelector('textarea[name="replyText"]');
+                const replyText = replyTextBox.value;
+                event.preventDefault(); 
+                // Perform the submission logic (e.g., sending a request to the server) with commentId and replyText
+                // ...
+                fetch('/submitReply', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({comment_id:commentId, text: replyText }), 
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Reply submitted successfully');
+                            
+                            fetchReply(commentId);
+                            
+                            replyTextBox.value = '';
+                            replyTextBox.style.display = 'none';
+                            //event.target.style.display = 'none';
+                            
+                            
+                        } else {
+                            
+                            console.error('Reply submission failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting reply:', error);
+                    });
+               // const commentId = event.target.getAttribute('data-commentid');
+                // Retrieve the reply text from the textarea
+                //const replyText = replyTextBox.value;
+
+               console.log(replyText);
+                replyForm.style.display = 'none';
+                replyTextBox.value = '';
+            }
+        }
+        function fetchReply(commentId) {
+    
+            console.log('comment',commentId);
+            // Replace '/getComments' with the actual endpoint to retrieve comments by problemId
+            fetch(`/getReply/${commentId}`, {
+                method: 'GET',
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch comments');
+                }
+            })
+            .then(replies => {
+                const repliesContainer = document.getElementById(`repliesContainer${commentId}`);
+              
+                console.log(repliesContainer)
+              
+                // Clear the previous content if needed
+                repliesContainer.innerHTML = '';
+                const reversedReplies = replies.slice().reverse();
+
+               
+                // Iterate through the replies and create HTML elements for each
+                reversedReplies.forEach(reply => {
+                  const card = createCard2(reply);
+                  repliesContainer.appendChild(card);
+                });
+               
+              })
+             ;   
+           
+        }
+        searchProblems();
+    </script>
+</body>
+</html>

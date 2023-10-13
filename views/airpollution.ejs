@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .low { background-color: rgb(11, 185, 11); color: white; }
+        .moderate { background-color: yellow; }
+        .lightly { background-color: orange; }
+        .moderatlyhigh { background-color: red; color: white; }
+        .heavelyhigh { background-color: orangered; color: white; }
+        .severelyhigh { background-color: maroon; color: white; }
+        table {
+            width: 70%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        .navbar .navbar-nav .nav-item:hover .nav-link{
+    
+            color: rgb(248, 245, 245);
+        }
+    </style>
+</head>
+<body>
+
+    <% if (session.userID) { %>
+        <nav class="navbar navbar-expand-lg bg-primary bg-opacity-75 mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="airPollution">Air pollution</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">About</a>
+                        </li>
+                        <li class="nav-item"">
+                            <a class="nav-link active " aria-current="page" href="Allreports">All Reports</a>
+                        </li>
+                        <li class="nav-item"">
+                            <a class="nav-link active " aria-current="page" href="contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" id="profileLink">(<%= session.userName %>)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a  class="nav-link active" aria-current="page" href="/logout" >Logout</a>
+                          </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+        
+    <% } else { %>
+        <!-- Your sign-in form here -->
+        <nav class="navbar navbar-expand-lg bg-primary bg-opacity-75  mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item ">
+                            <a class="nav-link active" aria-current="page" href="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="airPollution">Air pollution</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">About</a>
+                        </li>
+                        <li class="nav-item"">
+                            <a class="nav-link active " aria-current="page" href="contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#signInModal">Sign in
+                            </a>
+                          </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <% } %>
+    
+   
+    
+    <%- include('./login.ejs') %>
+    <%- include('./register.ejs') %>
+    <div class="container">
+        <h3>Pollutant Bandings</h3>
+    <p>Click on a pollutant to view related information:</p>
+
+    <!-- Tab buttons -->
+    <button class="tablink" onclick="openTab('ozone')">Ozone</button>
+    <button class="tablink" onclick="openTab('nitrogen')">Nitrogen Dioxide</button>
+    <button class="tablink" onclick="openTab('sulphurdioxide')">Sulphur Dioxide</button>
+    <button class="tablink" onclick="openTab('carbonmonoxide')">Carbon Monoxide</button>
+    <button class="tablink" onclick="openTab('pm2.5')">PM2.5 Particles</button>
+    <button class="tablink" onclick="openTab('pm10')">PM10 Particles</button>
+    
+    <div class="m-2">
+         <!-- Information sections -->
+    <div id="ozone" class="tabcontent">
+        <h3>Ozone Information</h3>
+        <table>
+            <tr>
+                <th>Index</th>
+                <td>0-50</td>
+                <td>51-100</td>
+                <td>101-150</td>
+                <td>151-200</td>
+                <td>201-300</td>
+                <td>301-500</td>
+            </tr>
+            <tr>
+                <th>Band</th>
+                <td class="low">Good</td>
+                <td class="moderate">Moderate</td>
+                <td class="lightly">Lightly polluted</td>
+                <td class="moderatlyhigh">Moderately Polluted</td>
+                <td class="heavelyhigh">Heavily Polluted</td>
+                <td class="severelyhigh">Severely Polluted</td>
+            </tr>
+            <tr>
+                <th>µg/m3</th>
+                <td class="low">0-160</td>
+                <td class="moderate">161-200</td>
+                <td class="lightly">201-300</td>
+                <td class="moderatlyhigh">301-400</td>
+                <td class="heavelyhigh">401-800</td>
+                <td class="severelyhigh">801-1200</td>
+            </tr> 
+        </table>
+    </div>
+
+    <div id="nitrogen" class="tabcontent">
+        <h3>Nitrogen Dioxide Information</h3>
+        <table>
+            <tr>
+                <th>Index</th>
+                <td>0-50</td>
+                <td>51-100</td>
+                <td>101-150</td>
+                <td>151-200</td>
+                <td>201-300</td>
+                <td>301-500</td>
+            </tr>
+            <tr>
+                <th>Band</th>
+                <td class="low">Good</td>
+                <td class="moderate">Moderate</td>
+                <td class="lightly">Lightly polluted</td>
+                <td class="moderatlyhigh">Moderately Polluted</td>
+                <td class="heavelyhigh">Heavily Polluted</td>
+                <td class="severelyhigh">Severely Polluted</td>
+            </tr>
+            <tr>
+                <th>µg/m3</th>
+                <td class="low">0-40</td>
+                <td class="moderate">41-80</td>
+                <td class="lightly">81-180</td>
+                <td class="moderatlyhigh">181-280</td>
+                <td class="heavelyhigh">281-565</td>
+                <td class="severelyhigh">566-940</td>
+            </tr>   
+        </table>
+    </div>
+     <div id="carbonmonoxide" class="tabcontent">
+        <h3>Carbon Monoxide Information</h3>
+        <table>
+            <tr>
+                <th>Index</th>
+                <td>0-50</td>
+                <td>51-100</td>
+                <td>101-150</td>
+                <td>151-200</td>
+                <td>201-300</td>
+                <td>301-500</td>
+            </tr>
+            <tr>
+                <th>Band</th>
+                <td class="low">Good</td>
+                <td class="moderate">Moderate</td>
+                <td class="lightly">Lightly polluted</td>
+                <td class="moderatlyhigh">Moderately Polluted</td>
+                <td class="heavelyhigh">Heavily Polluted</td>
+                <td class="severelyhigh">Severely Polluted</td>
+            </tr>
+            <tr>
+                <th>mg/m3</th>
+                <td class="low">0-2</td>
+                <td class="moderate">2-4</td>
+                <td class="lightly">4-14</td>
+                <td class="moderatlyhigh">14-24</td>
+                <td class="heavelyhigh">24-36</td>
+                <td class="severelyhigh">36-60</td>
+            </tr>   
+        </table>
+    </div>
+    <div id="sulphurdioxide" class="tabcontent">
+        <h3>Sulphur Dioxide Information</h3>
+        <table>
+            <tr>
+                <th>Index</th>
+                <td>0-50</td>
+                <td>51-100</td>
+                <td>101-150</td>
+                <td>151-200</td>
+                <td>201-300</td>
+                <td>301-500</td>
+            </tr>
+            <tr>
+                <th>Band</th>
+                <td class="low">Good</td>
+                <td class="moderate">Moderate</td>
+                <td class="lightly">Lightly polluted</td>
+                <td class="moderatlyhigh">Moderately Polluted</td>
+                <td class="heavelyhigh">Heavily Polluted</td>
+                <td class="severelyhigh">Severely Polluted</td>
+            </tr>
+            <tr>
+                <th>µg/m3</th>
+                <td class="low">0-50</td>
+                <td class="moderate">51-150</td>
+                <td class="lightly">151-475</td>
+                <td class="moderatlyhigh">476-800</td>
+                <td class="heavelyhigh">801-1600</td>
+                <td class="severelyhigh">1601-2620</td>
+            </tr>
+        </table>
+    </div>
+    <div id="pm2.5" class="tabcontent">
+        <h3>PM2.5 Information</h3>
+        <table>
+            <tr>
+                <th>Index</th>
+                <td>0-50</td>
+                <td>51-100</td>
+                <td>101-150</td>
+                <td>151-200</td>
+                <td>201-300</td>
+                <td>301-500</td>
+            </tr>
+            <tr>
+                <th>Band</th>
+                <td class="low">Good</td>
+                <td class="moderate">Moderate</td>
+                <td class="lightly">Lightly polluted</td>
+                <td class="moderatlyhigh">Moderately Polluted</td>
+                <td class="heavelyhigh">Heavily Polluted</td>
+                <td class="severelyhigh">Severely Polluted</td>
+            </tr>
+            <tr>
+                <th>µg/m3</th>
+                <td class="low">0-35</td>
+                <td class="moderate">36-75</td>
+                <td class="lightly">76-115</td>
+                <td class="moderatlyhigh">116-150</td>
+                <td class="heavelyhigh">151-250</td>
+                <td class="severelyhigh">251-500</td>
+            </tr>
+        </table>
+    </div>
+    <div id="pm10" class="tabcontent">
+        <h3>PM10 Information</h3>
+        <table>
+            <tr>
+                <th>Index</th>
+                <td>0-50</td>
+                <td>51-100</td>
+                <td>101-150</td>
+                <td>151-200</td>
+                <td>201-300</td>
+                <td>301-500</td>
+            </tr>
+            <tr>
+                <th>Band</th>
+                <td class="low">Good</td>
+                <td class="moderate">Moderate</td>
+                <td class="lightly">Lightly polluted</td>
+                <td class="moderatlyhigh">Moderately Polluted</td>
+                <td class="heavelyhigh">Heavily Polluted</td>
+                <td class="severelyhigh">Severely Polluted</td>
+            </tr>
+            <tr>
+                <th>µg/m3</th>
+                <td class="low">0-50</td>
+                <td class="moderate">51-150</td>
+                <td class="lightly">151-250</td>
+                <td class="moderatlyhigh">251-350</td>
+                <td class="heavelyhigh">351-420</td>
+                <td class="severelyhigh">421-600</td>
+            </tr>   
+        </table>
+    </div>
+    </div>
+   
+</div>
+    <div class="container pt-2">
+        <p> <button  class="btn btn1" style="background-color: green;"></button> - This represents the best air quality, inicating that the air is safe to breath. It implies minimal or no helath risks for the general population.</p>
+        <p> <button  class="btn btn2" style="background-color: yellow;"></button> - This suggests that the air quality is acceptable but may pose a moderate health concern for a very small number of people who are unusually sensitive to air pollution</p>
+        <p> <button  class="btn btn3" style="background-color: orange;"></button> - This indicates that the air quality is not suitable for individuals in sensitive groups, such as childern, the elderly, and those with respiratory or heart conditions. They may experience health effects.</p>
+        <p> <button  class="btn btn4" style="background-color: red;"></button> - This represents unhealthy air quality, with everyone likely to be affected. People with health conditions may experience more serious health effects, and the general public may experience discomfort.</p>
+        <p> <button  class="btn btn5" style="background-color: orangered;"></button> - This siginifies very unhealthy air quality. Health alert conditions are in place, and everyone may experience more serious health effects.</p>
+        <p> <button class="btn btn6" style="background-color: maroon;"></button> - This indiacting hazardous air quality. The entire population is likely to be affected, and the health alert is of emergency status. People are advised to stay indoors.</p>
+    </div>
+    <footer class="footer bg-primary mt-5 bg-opacity-75 " >
+        <div class="footeritem container d-flex justify-content-center">
+            <a class="footerlink p-2 fs-5 text-white text-decoration-none text-"  href="home">Home</a>
+            <a class="footerlink p-2 fs-5 text-white text-decoration-none"  href="All Pollution">Air Pollution</a>
+            <a class="footerlink p-2 fs-5 text-white text-decoration-none"  href="">contact</a>
+        </div>
+        <span class="d-flex text-white fs-6 fst-italic justify-content-center">@2023 | All rights reserved</span>
+    </footer>
+    
+    <script>
+        // JavaScript function to open a specific tab
+        function openTab(tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            document.getElementById(tabName).style.display = "block";
+        }
+
+        // By default, show the Ozone information tab
+        openTab('ozone');
+    </script>
+</body>
+</html>
