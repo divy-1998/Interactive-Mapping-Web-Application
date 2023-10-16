@@ -18,16 +18,16 @@
             background-size: cover;
           }
           textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-color: #007bff;
+          width: 100%;
+         padding: 10px;
+         margin-bottom: 15px;
+         border-color: #007bff;
     
-    border-radius: 5px;
-}
-.scrollable {
-    max-height: 300px; /* Adjust the maximum height as needed */
-    overflow-y: auto; /* Enable vertical scrolling when content exceeds the maximum height */
+        border-radius: 5px;
+        }
+        .scrollable {
+        max-height: 300px; 
+        overflow-y: auto; 
 }
     </style>
 </head>
@@ -270,7 +270,7 @@
                 replyTextBox.style.display = 'block';
         
                 const doneButton = form.querySelector('.postDone');
-               // doneButton.style.display = 'block';
+            
                 
                 // Send a POST request to submit the comment
                 fetch('/submitComment', {
@@ -283,7 +283,7 @@
                     .then(response => {
                         if (response.ok) {
                             // Comment was successfully submitted
-                            // You can update the UI or handle success as needed
+                            
                             console.log('Comment submitted successfully');
                             fetchComments(problemId);
                         } else {
@@ -342,7 +342,7 @@
                 // Display comments in your UI
                 console.log('Comments:', comments);
               
-                // You can update the UI to display the comments here
+                
             })
             .catch(error => {
                 console.error('Error fetching comments:', error);
@@ -379,18 +379,18 @@
     let minutes = date.getMinutes();
 
 // Ensure leading zeros for single-digit days, months, hours, and minutes
-if (day < 10) {
+    if (day < 10) {
     day = `0${day}`;
-}
-if (month < 10) {
+    }
+    if (month < 10) {
     month = `0${month}`;
-}
-if (hours < 10) {
+    }
+    if (hours < 10) {
     hours = `0${hours}`;
-}
-if (minutes < 10) {
+    }
+    if (minutes < 10) {
     minutes = `0${minutes}`;
-}
+    }
 
 let formattedDateTime = `${day}:${month}:${year} , ${hours}:${minutes}`;
 
@@ -422,8 +422,6 @@ let formattedDateTime = `${day}:${month}:${year} , ${hours}:${minutes}`;
                 const replyTextBox = replyForm.querySelector('textarea[name="replyText"]');
                 const replyText = replyTextBox.value;
                 event.preventDefault(); 
-                // Perform the submission logic (e.g., sending a request to the server) with commentId and replyText
-                // ...
                 fetch('/submitReply', {
                     method: 'POST',
                     headers: {
@@ -450,9 +448,7 @@ let formattedDateTime = `${day}:${month}:${year} , ${hours}:${minutes}`;
                     .catch(error => {
                         console.error('Error submitting reply:', error);
                     });
-               // const commentId = event.target.getAttribute('data-commentid');
-                // Retrieve the reply text from the textarea
-                //const replyText = replyTextBox.value;
+               
 
                console.log(replyText);
                 replyForm.style.display = 'none';

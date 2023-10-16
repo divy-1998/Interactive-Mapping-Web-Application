@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Details</title>
+   
     <link rel="stylesheet" href="style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
     .custom-blue {
-        background-color: #0a67e1; /* Replace with your desired color code */
-        color: #fff; /* Text color (usually white for dark backgrounds) */
+        background-color: #0a67e1; 
+        color: #fff; 
     }
-.white-text {
-    color: white;
-}
-.small-table {
-    width: 80%; /* Adjust the width as needed */
-    font-size: 20px; /* Adjust the font size as needed */
-}
-.custom-table {
-    margin-left: 50px;
-   
-}
-.chart-type-container,.checkbox-container{
-    list-style: none;
-    padding: 0;
-}
+    .white-text {
+        color: white;
+    }
+    .small-table {
+        width: 80%; 
+        font-size: 20px; 
+    }
+    .custom-table {
+        margin-left: 50px;
+    }
+    .chart-type-container,.checkbox-container{
+        list-style: none;
+        padding: 0;
+    }
 
 </style>
 </head>
@@ -45,12 +44,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="airPollution">Air pollution</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">About</a>
-                    </li>
-                    <li class="nav-item"">
-                        <a class="nav-link active " aria-current="page" href="contact">Contact</a>
                     </li>
                     </ul>
                 </div>
@@ -243,9 +236,7 @@
             document.getElementById("chartOptions1").style.display = "block";
         }
 
-        // Event listeners for button clicks
-        document.getElementById("weatherButton").addEventListener("click", showWeatherDetails);
-        document.getElementById("pollutionButton").addEventListener("click", showPollutionDetails);
+        
         // Function to parse query parameters from URL
         function getQueryParameters() {
             const queryParams = new URLSearchParams(window.location.search);
@@ -319,36 +310,7 @@
             
 
             // Fetch weather data and display it
-           // Function to handle weather button click
-document.getElementById("weatherButton").addEventListener("click", () => {
-    // Fetch and display weather information
-    fetchWeatherData(city, state)
-        .then((weatherData) => {
-            const weatherDetails = document.getElementById("weatherDetails");
-            if (weatherData.data && weatherData.data.length > 0) {
-                const weatherItem = weatherData.data[0];
-                weatherDetails.innerHTML = `
-                    <div class="card mb-3 h-50 w-50 container mt-4 " style="height: 100px;">
-                        <div class="card-body h-100" style="height: 100px;">
-                            <h5 class="card-title">${city} (${weatherItem.datetime})</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Temperature: ${weatherItem.temp} &deg; C</h6>
-                            <p class="card-text">Wind: ${weatherItem.wind_spd} M/S</p>
-                            <p class="card-text">Humidity: ${weatherItem.rh}%</p>
-                            <img class="forecast-image" src="https://cdn.weatherbit.io/static/img/icons/${weatherItem.weather.icon}.png" alt="weather" class="card-img-top">
-                            <p class="card-text">${weatherItem.weather.description}</p>
-                        </div>
-                    </div>
-                `;
-            } else {
-                weatherDetails.innerHTML = `<p>No weather data available for ${city}, ${state}</p>`;
-            }
-        })
-        .catch((error) => {
-            console.error("Error fetching weather data:", error);
-            const weatherDetails = document.getElementById("weatherDetails");
-            weatherDetails.innerHTML = `<p>Error fetching weather data: ${error.message}</p>`;
-        });
-});
+           
 
 
 
